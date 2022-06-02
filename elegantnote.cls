@@ -7,7 +7,6 @@
 \ProvidesClass{elegantnote}[2022/04/09 ElegantNote v2.40 class]
 \NeedsTeXFormat{LaTeX2e}
 
-
 \RequirePackage{kvoptions}
 \RequirePackage{etoolbox}
 \RequirePackage{calc}
@@ -44,14 +43,6 @@
 \DeclareVoidOption{founder}{\ekv{chinesefont=founder}}
 \DeclareVoidOption{nofont}{\ekv{chinesefont=nofont}}
 
-\DeclareStringOption[numeric-comp]{citestyle}
-\DeclareStringOption[numeric]{bibstyle}
-
-\DeclareStringOption[biber]{bibend}
-\DeclareVoidOption{biber}{\ekv{bibend=biber}}
-\DeclareVoidOption{bibtex}{\ekv{bibend=bibtex}}
-
-
 \DeclareStringOption[11pt]{fontsize}
 \DeclareVoidOption{10pt}{\ekv{fontsize=10pt}}
 \DeclareVoidOption{11pt}{\ekv{fontsize=11pt}}
@@ -72,6 +63,14 @@
 \PassOptionsToPackage{no-math}{fontspec}
 \PassOptionsToPackage{quiet}{fontspec}
 \RequirePackage{amsmath,amsthm}
+\RequirePackage{tabularx}
+
+\allowdisplaybreaks[4]
+
+\newcolumntype{L}{X}
+\newcolumntype{C}{>{\centering \arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft \arraybackslash}X}
+\newcolumntype{P}[1]{>{\centering \arraybackslash}p{#1}}
 
 \RequirePackage{iftex}
 
@@ -84,7 +83,7 @@
     BoldItalicFont = *-bolditalic ,
     Extension = .otf ,
     Scale = 1.0]
-    
+
   \setsansfont{texgyreheros}[
     UprightFont = *-regular ,
     BoldFont = *-bold ,
@@ -113,13 +112,13 @@
     \newcommand*{\heiti}{\CJKfamily{zhhei}}
     \newcommand*{\kaishu}{\CJKfamily{zhkai}}
     \newcommand*{\fangsong}{\CJKfamily{zhfs}}}{\relax}
-  
+
   \ifdefstring{\ELEGANT@chinesefont}{nofont}{
     \RequirePackage[UTF8,scheme=plain,fontset=none]{ctex}}{\relax}
 
   \ifdefstring{\ELEGANT@chinesefont}{ctexfont}{
     \RequirePackage[UTF8,scheme=plain]{ctex}}{\relax}
-  
+
   \AfterEndPreamble{
     \setlength\parindent{2\ccwd}}
 }{\relax}
@@ -160,13 +159,6 @@
   \DeclareMathSymbol{\prodop}{\mathop}{CMlargesymbols}{"51}
 }{\relax}
 
-
-\RequirePackage[
-  backend=\ELEGANT@bibend,
-  citestyle=\ELEGANT@citestyle,
-  bibstyle=\ELEGANT@bibstyle]{biblatex}
-
-
 \RequirePackage{appendix}
 
 \ifdefstring{\ELEGANT@lang}{cn}{%
@@ -184,7 +176,9 @@
   \newtheorem*{note}{\normalfont\bfseries 注} %
   \newtheorem{case}{\normalfont\bfseries 案例} %
   \renewcommand*{\proofname}{\normalfont\bfseries\color{ecolor}证明} %
-  \renewcommand\contentsname{\color{ecolor}目录}
+  \renewcommand\contentsname{\color{ecolor}目~~录}
+  \newcommand{\figureautorefname}{图}
+  \newcommand{\tableautorefname}{表}
   \renewcommand\refname{\color{ecolor}参考文献} %
   \renewcommand\figurename{图} %
   \renewcommand\tablename{表}
@@ -210,11 +204,27 @@
   \newtheorem*{remark}{Remark} %
   \newtheorem*{note}{Note} %
   \newcommand\ebibname{Bibliography}
-  \newtheorem{case}{Case} 
+  \newtheorem{case}{Case}
   \renewcommand*{\proofname}{%
     \normalfont\bfseries\color{ecolor} Proof}
   \newcommand\versiontext{Version: }%
   \newcommand\updatetext{Update: }}{\relax}
+
+\RequirePackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\hfill\bfseries\LARGE\color{ecolor}}
+\renewcommand{\cftaftertoctitle}{\hfill}
+\setlength{\cftbeforetoctitleskip}{8pt}
+\setlength{\cftaftertoctitleskip}{20pt}
+\setlength{\cftbeforesecskip}{16pt}
+\setlength{\cftbeforesubsecskip}{5pt}
+\renewcommand{\cftdot}{\color{ecolor}$\cdot$}
+\renewcommand{\cftdotsep}{3}
+\renewcommand{\cftsecdotsep}{\cftdotsep}  %
+%\renewcommand{\cftsecfont}{\songti}   %
+%\renewcommand{\cftsecpagefont}{\bfseries\color{ecolor}}
+%\renewcommand{\cftsubsecpagefont}{\color{ecolor}}
+%\renewcommand{\cftsubsubsecpagefont}{\color{ecolor}}
+
 
 \RequirePackage{indentfirst}
 \RequirePackage{anyfontsize}
@@ -248,7 +258,7 @@
 \RequirePackage{xcolor}
 \RequirePackage{silence}
 
-% good for eye color 
+% good for eye color
 \ifdefstring{\ELEGANT@mode}{geye}{
   \definecolor{geyecolor}{RGB}{199,237,204}%
   \pagecolor{geyecolor}
@@ -289,8 +299,8 @@
   \color{ecolor}\bfseries}{}{
   0.5em}{}
 
-% caption settings 
-\RequirePackage{caption} 
+% caption settings
+\RequirePackage{caption}
 \captionsetup{
   labelfont={bf,color=ecolor}}
 \captionsetup[table]{skip=3pt}
@@ -360,7 +370,7 @@
 \ifdefstring{\ELEGANT@device}{kindle}{%
   \geometry{
     margin=8mm,
-    paperwidth=3.68in, 
+    paperwidth=3.68in,
     paperheight=4.92in}}{%
   \relax}
 
@@ -370,7 +380,7 @@
     a4paper}}{%
   \relax}
 
-\ifdefstring{\ELEGANT@device}{screen}{%  
+\ifdefstring{\ELEGANT@device}{screen}{%
   \geometry{
     screen,
     paperwidth=25.4cm,
@@ -408,7 +418,7 @@
 \newtoks\institute
 
 \def \ifempty#1{
-  \def\temp{#1} 
+  \def\temp{#1}
   \ifx\temp\empty}
 
 \renewcommand\maketitle{\par
@@ -464,11 +474,11 @@
       \end{tabular}\par}%
 
   \IfEmpty\version
-  \else 
+  \else
     {\normalfont\citshape\versiontext\the\version \\}
   \fi
 	\ifx\@date\empty
-	\else 
+	\else
     {\normalfont\citshape\updatetext\@date}%
   \fi
   \end{center}%
@@ -492,7 +502,7 @@
 \setlist[itemize,2]{label={\eitemii}}
 \setlist[itemize,3]{label={\eitemiii}}
 % source1: https://tex.stackexchange.com/questions/41408/a-five-level-deep-list
-% source2: https://tex.stackexchange.com/questions/318199/change-color-of-itemize-bullet 
+% source2: https://tex.stackexchange.com/questions/318199/change-color-of-itemize-bullet
 
 
 \RequirePackage{listings,lstautogobble}
@@ -582,7 +592,6 @@
   frame=none,
   tabsize=2}
 
-\addbibresource[location=local]{reference.bib}
 
 % restore the tt default family to lmodern tt family
 \renewcommand\ttdefault{lmtt}

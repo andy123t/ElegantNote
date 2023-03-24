@@ -3,9 +3,11 @@
 
 # ElegantNote
 
-This version modifies `elegantnote.cls`, adds cover and table of contents settings, and removes references settings.  The template sample sees `main.tex`.
+This version modifies `elegantnote.cls`, adds cover, table of contents and code highlighting, and removes references settings.  The template sample sees `main.tex`.
 
-这个版本修改了 `elegantnote.cls`，增加了封面和目录的设置，去掉了参考文献的设置。模板样例参看 `main.tex`。
+这个版本修改了 `elegantnote.cls`，增加了封面、目录和代码高亮，去掉了参考文献的设置。模板样例参看 `main.tex`。
+
+这次更新加了中英文 screen 版的样例。
 
 [Homepage](https://elegantlatex.org/) | [Github](https://github.com/ElegantLaTeX/ElegantNote) | [CTAN](https://ctan.org/pkg/elegantnote) | [Download](https://github.com/ElegantLaTeX/ElegantNote/releases) | [Wiki](https://github.com/ElegantLaTeX/ElegantNote/wiki) | [Weibo](https://weibo.com/elegantlatex)
 

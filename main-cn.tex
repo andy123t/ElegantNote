@@ -1,6 +1,8 @@
 %!TEX program = xelatex
+
 %\documentclass[en,hazy,normal,blue,11pt]{elegantnote}
 \documentclass[cn,normal,12pt,blue]{elegantnote}
+
 \usepackage{amssymb,mathrsfs,multirow}
 %\usepackage[notcite,notref]{showkeys}
 %\usepackage{epsfig}
@@ -18,7 +20,16 @@
 \setlength{\bibsep}{8pt}  % 调整参考文献间距
 %\usepackage{subfig}
 
-% --- 算法宏包及设置 ---
+\fancypagestyle{plain}{%
+	\fancyhf{} %清空原有样式
+	\fancyhead[C]{\kaishu\nouppercase{\rightmark}}
+	\fancyfoot[C]{\color{gray}\thepage}
+    \renewcommand{\headrulewidth}{0.5pt}
+}
+
+\pagestyle{plain}
+
+%----- 算法宏包及设置 -----
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \floatname{algorithm}{算法}
@@ -26,8 +37,11 @@
 \algrenewcommand\algorithmicensure{\textbf{输出:}}
 
 
-% --- 代码高亮 ---
-\input{matlab-style.tex}
+%----- 代码高亮 -----
+%\lstset{basicstyle=\footnotesize\fontspec{Consolas}}
+%\lstset{basicstyle=\footnotesize\fontspec{Courier New}}
+%\newcommand*\lstinputpath[1]{\lstset{inputpath=#1}}
+%\lstinputpath{{./M-files/}}
 
 %\definecolor{hong}{RGB}{199,21,133}
 %\definecolor{huang}{RGB}{255,164,0}
@@ -36,7 +50,10 @@
 %\newcommand\HUGE{\@setfontsize\Huge{32}{36}}
 %\makeatother
 
-% --- 自定义命令 -----
+%----- 列表图标 -----
+\setlist[itemize]{label=$\circ$}
+
+%----- 自定义命令 -----
 \newcommand{\CC}{\ensuremath{\mathbb{C}}}
 \newcommand{\RR}{\ensuremath{\mathbb{R}}}
 \newcommand{\A}{\mathcal{A}}
@@ -47,6 +64,7 @@
 \newcommand{\mT}{\mathrm{T}}
 \newcommand{\md}{\mathrm{d}}
 
+%----- 模板信息 -----
 %\title{\LaTeX 笔记模板}
 %\author{某某某}
 %\institute{}
@@ -54,36 +72,38 @@
 %\date{\zhtoday}
 %\date{}
 
+
 \begin{document}
 %\maketitle
 
-\pagenumbering{Roman} % 页码为大写罗马数字
 
+%----- 生成封面 -----
 \input{cover.tex}
 
 
-% ----- generate a empty page -----
+%----- generate a empty page -----
 %\clearpage%
 %\thispagestyle{empty}%
 %\addtocounter{page}{-1}%
 %\null%
 %\clearpage
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{Roman} % 页码为大写罗马数字
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \clearpage
-%\phantomsection
 \pdfbookmark[1]{目录}{toc}
 \tableofcontents
 \clearpage
-\setlist[itemize]{label=$\circ$}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \pagenumbering{arabic}  % 页码为阿拉伯数字
 
-
-%==========================================%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 正文内容从这里开始  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%% 正文内容  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \section{第一节}
@@ -99,39 +119,22 @@
 这是一个引用的示例 \cite{Tadmor2012} 和 \cite{LiLiu1997,Adams2003,TreWei2014}.
 
 这是一大段文字这是一大段文字中英文混排 Numerical Methods. 这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字.
-%这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字.
 
 
 \subsection{第二小节}
 
 这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字这是一大段文字.
-%这是一大段文字 这是一大段文字 这是一大段文字这是一大段文字.
-
-
-%\subsection{结构安排}
-%
-%本文接下来的写作安排如下:
-%
-%第二章, 我们介绍了 LaTeX 常用环境, 包括列表的使用、文献引用、数学公式、定理环境以及算法环境.
-%
-%第三章, 对于差分方法数值求解微分方程, 给出了一个简短的示例.
-%
-%第四章, 针对插图环境, 给出了单个图形居中放置、两个图形并排放置以及多个图形并排放置的示例.
-%
-%第五章, 针对表格环境, 介绍了一些自定义命令, 也给出了相应的表格插入示例.
-%
-%最后是参考文献、附录、致谢和攻读硕士学位期间的研究成果.
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LaTeX 常用环境 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% LaTeX 常用环境 %%%%%%%%%%%%%%%%%%%%%%
 
 \section{LaTeX 常用环境}
 
 \subsection{列表的使用}
 
 这是一个计数的列表.
-\begin{enumerate}%[label={\rm (\arabic*)}]%\roman
+\begin{enumerate}%[label={(\arabic*)}]
 	\item 第一项
 		\begin{enumerate}
 			\item 第一项中的第一项
@@ -201,15 +204,16 @@ align 和 gather 有对应的不带编号的版本 align* 和 gather*.
 多个公式组在一起公用一个编号, 编号位于公式的居中位置, amsmath 宏包提供了诸如 aligned、gathered 等环境, 与 equation 环境套用.
 
 这个公式使用 aligned 环境 (\textbf{推荐使用})
-\begin{equation}\label{eqn:1}
+\begin{equation}\label{eq:alignedEq}
 \left\{\begin{aligned}
   &-\frac{\mathrm{d}^{2} u}{\mathrm{d} x^{2}}+\frac{\mathrm{d} u}{\mathrm{d} x}=\pi^{2} \sin (\pi x)+\pi \cos (\pi x),\quad x \in [0,1], \\
   &u(0)=0,\quad u(1)=0.
 \end{aligned} \right.
 \end{equation}
+其中方程的解析解为 $u=\sin(\pi x)$.
 
 这个公式使用 array 环境
-\begin{equation}\label{eqn:2}
+\begin{equation}\label{eq:arrayEq}
 \left\{\begin{array}{l}
 \displaystyle
 -\frac{\mathrm{d}^{2} u}{\mathrm{d} x^{2}}+\frac{\mathrm{d} u}{\mathrm{d} x}=\pi^{2} \sin (\pi x)+\pi \cos (\pi x),\quad x \in [0,1], \\[6pt]
@@ -217,61 +221,63 @@ u(0)=0,\quad u(1)=0.
 \end{array} \right.
 \end{equation}
 
-aligned 与 equation 环境套用, 公式间距是自动调节的, 如果有分式, 分式也是行间显示. 如果用 array 与 equation 环境套用, 有时候需要手动调整公式行间距和行间显示.
-
+aligned 与 equation 环境套用, 公式间距自动调节, 如果有分式, 分式也是行间显示. 如果用 array 与 equation 环境套用, 需要手动调整公式行间距和行间显示.
 
 
 \subsection{定理环境}
 
-\begin{definition}
+\begin{definition}\label{def:foo}
 这是一个定义.
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}\label{prop:foo}
 这是一个命题.
 \end{proposition}
 
-\begin{lemma}[Lemma]\label{lemma1}
+\begin{lemma}[Lemma]\label{lmm:foo}
 这是一个引理.
 \end{lemma}
 
-\begin{theorem}[Theorem]
+\begin{theorem}[Theorem]\label{thm:foo}
 这是一个定理.
 \end{theorem}
 \begin{proof}
 这是证明环境.
 \end{proof}
 
+\begin{corollary}\label{cor:foo}
+这是一个推论.
+\end{corollary}
+
 \begin{proposition}[Proposition]
 这是一个命题.
 \end{proposition}
 
-\begin{lemma}\label{lemma-convergence} {\rm (\textit{参考文献}\cite{LiLiu1997})}
-假设单步法具有 $p$ 阶精度, 且増量函数 $\varphi(x_{n}, u_{n}, h)$ 关于 $u$ 满足 {\rm Lipschitz} 条件
-\begin{equation}\label{eqn:3}
+\begin{lemma}\label{lmm:convergence} {\rm (\textit{参考文献}\cite{LiLiu1997})}
+假设单步法具有 $p$ 阶精度, 且増量函数 $\varphi(x_{n}, u_{n}, h)$ 关于 $u$ 满足 \textup{Lipschitz} 条件
+\begin{equation}\label{eq:conver1}
 |\varphi(x, u, h)-\varphi(x, \bar{u}, h)| \leqslant L_{\varphi}|u-\bar{u}|.
 \end{equation}
 \end{lemma}
 
-\begin{theorem}\label{theorem-convergence}
-假设单步法具有 $p$ 阶精度, 且増量函数 $\varphi(x_{n}, u_{n}, h)$ 关于 $u$ 满足 {\rm Lipschitz} 条件
-\begin{equation}\label{eqn:4}
+\begin{theorem}\label{thm:convergence}
+假设单步法具有 $p$ 阶精度, 且増量函数 $\varphi(x_{n}, u_{n}, h)$ 关于 $u$ 满足\textup{Lipschitz} 条件
+\begin{equation}\label{eq:conver2}
 |\varphi(x, u, h)-\varphi(x, \bar{u}, h)| \leqslant L_{\varphi}|u-\bar{u}|.
 \end{equation}
 \end{theorem}
-\begin{proof}[\color{ecolor}\normalfont\bfseries 证明~\nopunct]
-由定理 \ref{lemma1} 和 \eqref{eqn:1} 式可以推出以上结论.
+\begin{proof}[\normalfont\bfseries 证明~\nopunct]
+由定理 \ref{lmm:convergence} 和 \eqref{eq:alignedEq} 式可以推出以上结论.
 \end{proof}
 
-\begin{corollary}\label{col-convergence}
-假设单步法具有 $p$ 阶精度, 且増量函数 $\varphi(x_{n}, u_{n}, h)$ 关于 $u$ 满足 {\rm Lipschitz} 条件
-\begin{equation}\label{eqn:5}
+\begin{corollary}\label{col:convergence}
+假设单步法具有 $p$ 阶精度, 且増量函数 $\varphi(x_{n}, u_{n}, h)$ 关于 $u$ 满足 \textup{Lipschitz} 条件
+\begin{equation}\label{eq:conver3}
 |\varphi(x, u, h)-\varphi(x, \bar{u}, h)| \leqslant L_{\varphi}|u-\bar{u}|.
 \end{equation}
 \end{corollary}
 
-
-\begin{remark}\label{remark1}
+\begin{remark}\label{rem:remark}
 这是一个 remark.
 \end{remark}
 
@@ -280,47 +286,45 @@ aligned 与 equation 环境套用, 公式间距是自动调节的, 如果有分�
 \end{example}
 
 
-
 \subsection{算法环境}
 
 如下是算法~\ref{alg:euclid}.
 \begin{algorithm}[H]
-    \small
-    \caption{Euclid's algorithm}\label{alg:euclid}
-    \begin{algorithmic}[1]
-        \Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
-        \State $r\gets a\bmod b$
-        \While{$r\not=0$}\Comment{We have the answer if r is 0}
-        \State $a\gets b$
-        \State $b\gets r$
-        \State $r\gets a\bmod b$
-        \EndWhile\label{euclidendwhile}
-        \State \Return $b$\Comment{The gcd is b}
-        \EndProcedure
-    \end{algorithmic}
+\small
+\caption{~Euclid's algorithm}\label{alg:euclid}
+\begin{algorithmic}[1]
+  \Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
+  \State $r\gets a\bmod b$
+  \While{$r\not=0$}\Comment{We have the answer if r is 0}
+  \State $a\gets b$
+  \State $b\gets r$
+  \State $r\gets a\bmod b$
+  \EndWhile\label{euclidendwhile}
+  \State \Return $b$\Comment{The gcd is b}
+  \EndProcedure
+\end{algorithmic}
 \end{algorithm}
 
-
-如下是算法~\ref{alg:name}, 算法宽度可以通过 minipage 宏包调节.
+如下是算法~\ref{alg:foo}, 算法宽度可以通过 minipage 宏包调节.
 \begin{center}
 \vspace{-2ex}
 \begin{minipage}{.9\linewidth}
 \begin{algorithm}[H]
-\caption{算法的名字}\label{alg:name}  % 算法的名字
+\caption{~算法的名字}\label{alg:foo}
 \begin{algorithmic}[1]
-\Require  input parameters A, B, C  % 算法的输入
-\Ensure  output result   % 算法的结果输出
-\State some description 算法介绍   % \State 后写一般语句
-\For{condition}    % For 语句，需要和 EndFor对应
-　　\State ...
-　　\If{condition}  % If 语句，需要和 EndIf对应
-　　　　\State ...
-　　\Else
-　　　　\State ...
-　　\EndIf
+\Require input parameters A, B, C
+\Ensure output result
+\State some description 算法介绍
+\For{condition}
+  \State ...
+  \If{condition}
+    \State ...
+    \Else
+    \State ...
+  \EndIf
 \EndFor
-\While{condition}  % While语句，需要和 EndWhile对应
-　　\State ...
+\While{condition}
+  \State ...
 \EndWhile
 \State \Return result
 \end{algorithmic}
@@ -330,7 +334,7 @@ aligned 与 equation 环境套用, 公式间距是自动调节的, 如果有分�
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%% 微分方程的数值方法 %%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%% 微分方程的数值方法 %%%%%%%%%%%%%%%%%%%
 
 \section{微分方程的数值方法}
 
@@ -412,7 +416,7 @@ aligned 与 equation 环境套用, 公式间距是自动调节的, 如果有分�
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 插图环境 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% 插图环境 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{插图环境}
 
@@ -459,7 +463,7 @@ XeLaTeX 环境下可以使用 EPS、PDF、PNG、JPEG、BMP 格式的图片, 当�
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 表格环境 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%% 表格环境 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{表格环境}
 
@@ -492,7 +496,7 @@ LaTeX 的 Table 环境一个浮动体环境, 浮动体排版与 Figure 环境类
 \end{tabularx}
 \end{table}
 
-基于 tabularx 环境设置一些格式: 左右表格双线.
+基于 tabularx 环境设置一些格式, 如图~\ref{tab:error2}.
 \begin{table}[htp!]
 \centering
 \renewcommand\arraystretch{1.2} %定义表格高度
@@ -517,6 +521,56 @@ N  & A       & B    & C       & D      & E       & F   \\
 \end{tabularx}
 \end{table}
 
+
+\section{代码高亮}
+
+MATLAB 代码高亮
+
+\begin{lstlisting}[style=matlab,title={MATLAB code}]
+% Euler method for the ODE model
+% u'(x)=x^2+x-u, x in [0,1]
+% Initial condition: u(0)=0 ;
+% Exact solution: u(x)=-exp(-x)+x^2-x+1.
+clear all;  clf
+h=0.1;
+x=0:h:1;
+N=length(x)-1;
+u(1)=0;                        % initial value
+fun=@(t,u) t.^2+t-u;           % RHS
+
+for n=1:N
+    u(n+1)=u(n)+h.*fun(x(n),u(n));
+end
+
+ue=-exp(-x)+x.^2-x+1;          % exact solution
+plot(x,ue,'b-',x,u,'r+','LineWidth',1)
+legend('Exact','Numerical','location','North')
+%title('Euler method','fontsize',12)
+set(gca,'fontsize',12)
+xlabel('x','fontsize',16), ylabel('u','fontsize',16,'Rotation',0)
+\end{lstlisting}
+
+Python 代码高亮
+
+\begin{lstlisting}[style=python,title={Python code}]
+#PythonDraw.py
+import turtle as t
+t.setup(650, 350, 200, 200)
+t.penup()
+t.fd(-250)
+t.pendown()
+t.pensize(25)
+t.pencolor("purple color")
+t.seth(-40)
+for i in range(4):
+    t.circle(40, 80)
+    t.circle(-40, 80)
+t.circle(40, 80/2)
+t.fd(40)
+t.circle(16, 180)
+t.fd(40 * 2/3)
+t.done()
+\end{lstlisting}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%% 参考文献 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
